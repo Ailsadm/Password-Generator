@@ -22,49 +22,80 @@ let upperCasedCharacters = [
 // Function to prompt user for password options
 function getPasswordOptions() {
 
-  const passwordOptions = {
+  const passwordOptions = {}
 
+  let passwordLength = prompt("Please type a password length between 10 and 64") 
+  if (passwordLength != null) {
+    passwordLength = parseInt(passwordLength);
   }
-  let passwordLength = prompt("Please type a password length between 10 and 64")
-    if (isNaN(passwordLength) ) {
-      return 'validation error'
-    } 
 
-    passwordOptions.passwordLength = passwordLength
-
+  passwordOptions.passwordLength = passwordLength
 
   let passwordSpecialCharacter = prompt("Do you want Special Characters Yes or No?")
-    if (passwordSpecialCharacter !== "Yes" || passwordSpecialCharacter !== "No"){
-      return 'validation error'
-}}
+  if (passwordSpecialCharacter === "Yes") {
+    passwordSpecialCharacter = true
+  }
+
+  passwordOptions.passwordSpecialCharacter = passwordSpecialCharacter
+ 
+  let passwordUpperCase = prompt("Do you want Upper Case Characters Yes or No?")
+  if ( passwordUpperCase === "Yes") {
+    passwordUpperCase = true
+  }
+
+  passwordOptions.passwordUpperCase = passwordUpperCase
+
+  let passwordNumeric = prompt("Do you want Numeric Characters Yes or No?")
+  if ( passwordNumeric === "Yes") {
+    passwordNumeric = true
+  }
+
+  passwordOptions.passwordNumeric = passwordNumeric
+
+  let passwordlowerCase = prompt("Do you want Lower Case Characters Yes or No?")
+  if ( passwordlowerCase === "Yes") {
+    passwordlowerCase = true
+  }
+
+  passwordOptions.passwordlowerCase = passwordlowerCase
+
+  return passwordOptions
+}
 
 // Function for getting a random element from an array
 function getRandom(arr) {
-
-
   return Math.floor(Math.random()*arr.length)
-
-
 }
 
 // Function to generate password with user input
 function generatePassword() {
 
-  getPasswordOptions()
+  const passwordOptions = getPasswordOptions()
+
+  let bigArray = []
+  if (passwordOptions.passwordSpecialCharacter === true){
+    bigArray = bigArray.concat(specialCharacters)
+  }
+  if(passwordOptions.passwordUpperCase === true){
+    bigArray = bigArray.concat(upperCasedCharacters)
+  }
+  if(passwordOptions.passwordNumeric === true){
+    bigArray = bigArray.concat(numericCharacters)
+  }
+  if (passwordOptions.passwordlowerCase === true){
+    bigArray = bigArray.concat(lowerCasedCharacters)
+  }
 
   let practicePassword = "";
-  for (let i = 0; i < 64; i++) {
-    
-let randomindex = getRandom(specialCharacters)
 
-    practicePassword += specialCharacters[randomindex]
+  for (let i = 0; i < passwordOptions.passwordLength; i++) {
     
+    let randomindex = getRandom(bigArray)
+    practicePassword += bigArray[randomindex]
   }
 
 
-
   return practicePassword;
- 
 }
 
 // Get references to the #generate element
@@ -86,4 +117,4 @@ generateBtn.addEventListener('click', writePassword);
 
   
 
-  // bigArray = bigArray.concat(exampleArray)
+ 

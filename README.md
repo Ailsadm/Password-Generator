@@ -17,4 +17,4 @@ The password can include special characters. If you’re unfamiliar with these, 
 
 * Link to deployed application:
 
-* https://ailsadm.github.io/Week5JSChallenge/
+*(https://ailsadm.github.io/Password-Generator/)
